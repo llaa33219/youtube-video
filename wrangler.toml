@@ -1,4 +1,4 @@
-name = "cf-youtube-downloader"
+name = "youtube-video"
 type = "javascript"
 account_id = "e22a8e392dcb1319fcb607ca77401014"
 workers_dev = true
