@@ -1,0 +1,8 @@
+name = "cf-youtube-downloader"
+type = "javascript"
+account_id = "e22a8e392dcb1319fcb607ca77401014"
+workers_dev = true
+compatibility_date = "2025-02-28"
+
+[build]
+command = "npm run build"

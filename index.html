@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube Downloader</title>
+  <style>
+    /* 기본 스타일 */
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    input, select, button {
+      padding: 8px;
+      margin: 5px;
+      font-size: 1em;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>YouTube Downloader</h1>
+  <form id="downloadForm">
+    <label for="videoUrl">YouTube URL:</label>
+    <input type="text" id="videoUrl" name="videoUrl" required placeholder="https://www.youtube.com/watch?v=...">
+
+    <label>Format:</label>
+    <input type="radio" id="mp4" name="format" value="mp4" checked>
+    <label for="mp4" style="display:inline;">MP4</label>
+    <input type="radio" id="mp3" name="format" value="mp3">
+    <label for="mp3" style="display:inline;">MP3</label>
+
+    <!-- 영상 옵션 (mp4 선택 시) -->
+    <div id="videoOptions">
+      <label for="videoQuality">Video Quality:</label>
+      <select id="videoQuality" name="quality">
+        <option value="1080p">1080p</option>
+        <option value="720p">720p</option>
+        <option value="480p">480p</option>
+        <option value="360p">360p</option>
+      </select>
+    </div>
+
+    <!-- 오디오 옵션 (mp3 선택 시) -->
+    <div id="audioOptions" class="hidden">
+      <label for="audioQuality">Audio Quality (kbps):</label>
+      <select id="audioQuality" name="quality">
+        <option value="320">320</option>
+        <option value="256">256</option>
+        <option value="192">192</option>
+        <option value="128">128</option>
+      </select>
+    </div>
+
+    <br>
+    <button type="submit">Download</button>
+  </form>
+
+  <script>
+    // 포맷 선택에 따라 옵션 노출 토글
+    document.querySelectorAll('input[name="format"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (document.getElementById('mp4').checked) {
+          document.getElementById('videoOptions').classList.remove('hidden');
+          document.getElementById('audioOptions').classList.add('hidden');
+        } else {
+          document.getElementById('videoOptions').classList.add('hidden');
+          document.getElementById('audioOptions').classList.remove('hidden');
+        }
+      });
+    });
+
+    // 폼 제출 시 API 함수 호출하여 다운로드 시작
+    document.getElementById('downloadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const videoUrl = document.getElementById('videoUrl').value;
+      const format = document.querySelector('input[name="format"]:checked').value;
+      let quality;
+      if(format === 'mp4'){
+        quality = document.getElementById('videoQuality').value;
+      } else {
+        quality = document.getElementById('audioQuality').value;
+      }
+      // Cloudflare Pages에서는 functions 폴더 내의 download.js가 /api/download로 노출됩니다.
+      const downloadUrl = `/api/download?url=${encodeURIComponent(videoUrl)}&format=${format}&quality=${quality}`;
+      // 다운로드를 시작하기 위해 브라우저에서 해당 URL로 이동합니다.
+      window.location.href = downloadUrl;
+    });
+  </script>
+</body>
+</html>

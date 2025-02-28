@@ -1,0 +1,12 @@
+{
+    "name": "cf-youtube-downloader",
+    "version": "1.0.0",
+    "scripts": {
+      "build": "echo 'Building Cloudflare Pages site...'",
+      "dev": "wrangler dev"
+    },
+    "dependencies": {
+      "ytdl-core": "^4.11.0"
+    }
+  }
+  
