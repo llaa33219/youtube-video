@@ -1,6 +1,9 @@
 name = "youtube-video"
 account_id = "e22a8e392dcb1319fcb607ca77401014"
 compatibility_date = "2025-02-28"
+pages_build_output_dir = "public"
+
+[functions]
 nodejs_compat = true
 
 [build]
