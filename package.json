@@ -1,8 +1,8 @@
 {
-    "name": "cf-youtube-downloader",
+    "name": "youtube-video",
     "version": "1.0.0",
     "scripts": {
-      "build": "echo 'Building Cloudflare Pages site...'",
+      "build": "echo \"Building Cloudflare Pages site...\"",
       "dev": "wrangler dev"
     },
     "dependencies": {

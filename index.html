@@ -77,20 +77,20 @@
       });
     });
 
-    // 폼 제출 시 API 함수 호출하여 다운로드 시작
+    // 폼 제출 시 /api/download로 GET 요청
     document.getElementById('downloadForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const videoUrl = document.getElementById('videoUrl').value;
       const format = document.querySelector('input[name="format"]:checked').value;
       let quality;
-      if(format === 'mp4'){
+      if (format === 'mp4') {
         quality = document.getElementById('videoQuality').value;
       } else {
         quality = document.getElementById('audioQuality').value;
       }
-      // Cloudflare Pages에서는 functions 폴더 내의 download.js가 /api/download로 노출됩니다.
+      // /api/download로 GET 요청
       const downloadUrl = `/api/download?url=${encodeURIComponent(videoUrl)}&format=${format}&quality=${quality}`;
-      // 다운로드를 시작하기 위해 브라우저에서 해당 URL로 이동합니다.
+      // 다운로드를 위해 페이지 이동
       window.location.href = downloadUrl;
     });
   </script>
